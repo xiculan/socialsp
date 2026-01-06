@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'social_goal', // Añade esto
     ];
 
     /**
@@ -45,4 +46,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    /**
+ * Obtener la URL del avatar del usuario o uno por defecto.
+ */
+public function getAvatarUrlAttribute()
+{
+    if ($this->avatar) {
+        return asset('storage/' . $this->avatar);
+    }
+
+    // Retorna una imagen genérica (puedes usar una de UI Avatars que es gratuita y genial)
+    return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+}
 }
